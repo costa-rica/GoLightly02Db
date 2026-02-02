@@ -12,7 +12,6 @@ export class User extends Model<
   InferCreationAttributes<User>
 > {
   declare id: CreationOptional<number>;
-  declare publicId: string;
   declare email: string;
   declare password: string;
   declare isEmailVerified: CreationOptional<boolean>;
@@ -30,11 +29,6 @@ export function initUser() {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
-      },
-      publicId: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
       },
       email: {
         type: DataTypes.STRING,

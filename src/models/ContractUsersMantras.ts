@@ -15,7 +15,6 @@ export class ContractUsersMantras extends Model<
   InferCreationAttributes<ContractUsersMantras>
 > {
   declare id: CreationOptional<number>;
-  declare publicId: string;
   declare userId: ForeignKey<User["id"]>;
   declare mantraId: ForeignKey<Mantra["id"]>;
 
@@ -31,11 +30,6 @@ export function initContractUsersMantras() {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
-      },
-      publicId: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
       },
       userId: {
         type: DataTypes.INTEGER,

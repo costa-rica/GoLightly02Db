@@ -12,7 +12,6 @@ export class ElevenLabsFiles extends Model<
   InferCreationAttributes<ElevenLabsFiles>
 > {
   declare id: CreationOptional<number>;
-  declare publicId: string;
   declare filename: string | null;
   declare filePath: string | null;
 
@@ -28,11 +27,6 @@ export function initElevenLabsFiles() {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
-      },
-      publicId: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
       },
       filename: {
         type: DataTypes.STRING,

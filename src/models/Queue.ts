@@ -14,7 +14,6 @@ export class Queue extends Model<
   InferCreationAttributes<Queue>
 > {
   declare id: CreationOptional<number>;
-  declare publicId: string;
   declare userId: ForeignKey<User["id"]>;
   declare status: string;
   declare jobFilename: string;
@@ -31,11 +30,6 @@ export function initQueue() {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
-      },
-      publicId: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
       },
       userId: {
         type: DataTypes.INTEGER,

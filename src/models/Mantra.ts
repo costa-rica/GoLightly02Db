@@ -12,7 +12,6 @@ export class Mantra extends Model<
   InferCreationAttributes<Mantra>
 > {
   declare id: CreationOptional<number>;
-  declare publicId: string;
   declare title: string;
   declare description: string | null;
   declare visibility: CreationOptional<string>;
@@ -31,11 +30,6 @@ export function initMantra() {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
-      },
-      publicId: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
       },
       title: {
         type: DataTypes.STRING,
