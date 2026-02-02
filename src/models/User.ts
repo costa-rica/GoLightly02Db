@@ -16,6 +16,7 @@ export class User extends Model<
   declare password: string;
   declare isEmailVerified: CreationOptional<boolean>;
   declare emailVerifiedAt: Date | null;
+  declare isAdmin: CreationOptional<boolean>;
 
   // Timestamps
   declare createdAt: CreationOptional<Date>;
@@ -51,6 +52,11 @@ export function initUser() {
       emailVerifiedAt: {
         type: DataTypes.DATE,
         allowNull: true,
+      },
+      isAdmin: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
       },
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,

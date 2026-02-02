@@ -13,11 +13,11 @@ Sequelize will handle the createdAt and updatedAt columns with timestamps: true.
 | Column          | Type            | Null | Notes                          |
 | --------------- | --------------- | ---- | ------------------------------ |
 | id              | id              | NO   | PK                             |
-| publicId        | publicId        | NO   |                                |
 | email           | email           | NO   | unique, normalized (lowercase) |
 | password        | password        | NO   | store bcrypt hash              |
 | isEmailVerified | isEmailVerified | NO   | default `false`                |
 | emailVerifiedAt | emailVerifiedAt | YES  | set upon verification          |
+| isAdmin         | isAdmin         | NO   | default `false`                |
 
 ### Table: `Mantras`
 
@@ -26,7 +26,6 @@ Sequelize will handle the createdAt and updatedAt columns with timestamps: true.
 | Column      | Type        | Null | Notes                      |
 | ----------- | ----------- | ---- | -------------------------- |
 | id          | id          | NO   | PK                         |
-| publicId    | publicId    | NO   |                            |
 | title       | title       | NO   | name shown in UI           |
 | description | description | YES  | public listing summary     |
 | visibility  | visibility  | NO   | default `'private'`        |
@@ -40,7 +39,6 @@ Sequelize will handle the createdAt and updatedAt columns with timestamps: true.
 | Column   | Type     | Null | Notes           |
 | -------- | -------- | ---- | --------------- |
 | id       | id       | NO   | PK              |
-| publicId | publicId | NO   |                 |
 | userId   | userId   | NO   | FK → users.id   |
 | mantraId | mantraId | NO   | FK → mantras.id |
 
@@ -51,7 +49,6 @@ Sequelize will handle the createdAt and updatedAt columns with timestamps: true.
 | Column   | Type     | Null | Notes                      |
 | -------- | -------- | ---- | -------------------------- |
 | id       | id       | NO   | PK                         |
-| publicId | publicId | NO   |                            |
 | filename | filename | YES  | filename of the audio file |
 | filePath | filePath | YES  | path to the audio file     |
 
@@ -62,7 +59,6 @@ Sequelize will handle the createdAt and updatedAt columns with timestamps: true.
 | Column      | Type        | Null | Notes           |
 | ----------- | ----------- | ---- | --------------- |
 | id          | id          | NO   | PK              |
-| publicId    | publicId    | NO   |                 |
 | userId      | userId      | NO   | FK → users.id   |
 | mantraId    | mantraId    | NO   | FK → mantras.id |
 | listenCount | listenCount | NO   | set upon listen |
@@ -71,10 +67,9 @@ Sequelize will handle the createdAt and updatedAt columns with timestamps: true.
 
 #### Columns
 
-| Column      | Type     | Null | Notes                                                                     |
-| ----------- | -------- | ---- | ------------------------------------------------------------------------- |
-| id          | id       | NO   | PK                                                                        |
-| publicId    | publicId | NO   |                                                                           |
-| userId      | userId   | NO   | FK → users.id                                                             |
-| status      | string   | NO   | “queued”, “started”, "elevenlabs", "concatenator" or "done"               |
-| jobFilename | string   | NO   | csv filename of the job file stored in PATH_QUEUER/user_request_csv_files |
+| Column      | Type   | Null | Notes                                                                     |
+| ----------- | ------ | ---- | ------------------------------------------------------------------------- |
+| id          | id     | NO   | PK                                                                        |
+| userId      | userId | NO   | FK → users.id                                                             |
+| status      | string | NO   | “queued”, “started”, "elevenlabs", "concatenator" or "done"               |
+| jobFilename | string | NO   | csv filename of the job file stored in PATH_QUEUER/user_request_csv_files |
