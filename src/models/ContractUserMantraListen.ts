@@ -18,6 +18,7 @@ export class ContractUserMantraListen extends Model<
   declare userId: ForeignKey<User["id"]>;
   declare mantraId: ForeignKey<Mantra["id"]>;
   declare listenCount: number;
+  declare favorite: CreationOptional<boolean>;
 
   // Timestamps
   declare createdAt: CreationOptional<Date>;
@@ -52,6 +53,11 @@ export function initContractUserMantraListen() {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0,
+      },
+      favorite: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
       },
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,

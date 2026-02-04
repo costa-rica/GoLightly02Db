@@ -287,12 +287,13 @@ try {
 
 #### Columns
 
-| Column      | Type        | Null | Notes           |
-| ----------- | ----------- | ---- | --------------- |
-| id          | id          | NO   | PK              |
-| userId      | userId      | NO   | FK → users.id   |
-| mantraId    | mantraId    | NO   | FK → mantras.id |
-| listenCount | listenCount | NO   | set upon listen |
+| Column      | Type        | Null | Notes                            |
+| ----------- | ----------- | ---- | -------------------------------- |
+| id          | id          | NO   | PK                               |
+| userId      | userId      | NO   | FK → users.id                    |
+| mantraId    | mantraId    | NO   | FK → mantras.id                  |
+| listenCount | listenCount | NO   | set upon listen                  |
+| favorite    | boolean     | NO   | default `false`, user favorited  |
 
 ### Table: `Queue`
 
