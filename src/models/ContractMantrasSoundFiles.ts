@@ -6,7 +6,7 @@ import {
   CreationOptional,
   ForeignKey,
 } from "sequelize";
-import { sequelize } from "../config/database";
+import { sequelize } from "./_connection";
 import { Mantra } from "./Mantra";
 import { SoundFiles } from "./SoundFiles";
 
@@ -67,6 +67,6 @@ export function initContractMantrasSoundFiles() {
       tableName: "contract_mantras_sound_files",
       timestamps: true,
       underscored: true,
-    }
+    },
   );
 }

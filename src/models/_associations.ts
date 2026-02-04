@@ -1,7 +1,7 @@
 import { User } from "./User";
 import { Mantra } from "./Mantra";
 import { ContractUsersMantras } from "./ContractUsersMantras";
-import { UserMantraListen } from "./UserMantraListen";
+import { ContractUserMantraListen } from "./ContractUserMantraListen";
 import { Queue } from "./Queue";
 import { ElevenLabsFiles } from "./ElevenLabsFiles";
 import { ContractMantrasElevenLabsFiles } from "./ContractMantrasElevenLabsFiles";
@@ -35,23 +35,23 @@ export function applyAssociations() {
     as: "mantra",
   });
 
-  // UserMantraListen associations
-  UserMantraListen.belongsTo(User, {
+  // ContractUserMantraListen associations
+  ContractUserMantraListen.belongsTo(User, {
     foreignKey: "userId",
     as: "user",
   });
 
-  UserMantraListen.belongsTo(Mantra, {
+  ContractUserMantraListen.belongsTo(Mantra, {
     foreignKey: "mantraId",
     as: "mantra",
   });
 
-  User.hasMany(UserMantraListen, {
+  User.hasMany(ContractUserMantraListen, {
     foreignKey: "userId",
     as: "mantraListens",
   });
 
-  Mantra.hasMany(UserMantraListen, {
+  Mantra.hasMany(ContractUserMantraListen, {
     foreignKey: "mantraId",
     as: "listens",
   });

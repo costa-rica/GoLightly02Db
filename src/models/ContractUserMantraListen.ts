@@ -10,9 +10,9 @@ import { sequelize } from "./_connection";
 import { User } from "./User";
 import { Mantra } from "./Mantra";
 
-export class UserMantraListen extends Model<
-  InferAttributes<UserMantraListen>,
-  InferCreationAttributes<UserMantraListen>
+export class ContractUserMantraListen extends Model<
+  InferAttributes<ContractUserMantraListen>,
+  InferCreationAttributes<ContractUserMantraListen>
 > {
   declare id: CreationOptional<number>;
   declare userId: ForeignKey<User["id"]>;
@@ -24,8 +24,8 @@ export class UserMantraListen extends Model<
   declare updatedAt: CreationOptional<Date>;
 }
 
-export function initUserMantraListen() {
-  UserMantraListen.init(
+export function initContractUserMantraListen() {
+  ContractUserMantraListen.init(
     {
       id: {
         type: DataTypes.INTEGER,
@@ -60,7 +60,7 @@ export function initUserMantraListen() {
       sequelize,
       tableName: "user_mantra_listens",
       timestamps: true,
-    }
+    },
   );
-  return UserMantraListen;
+  return ContractUserMantraListen;
 }

@@ -2,13 +2,25 @@ import { sequelize } from "./_connection";
 
 import { initUser, User } from "./User";
 import { initMantra, Mantra } from "./Mantra";
-import { initContractUsersMantras, ContractUsersMantras } from "./ContractUsersMantras";
-import { initUserMantraListen, UserMantraListen } from "./UserMantraListen";
+import {
+  initContractUsersMantras,
+  ContractUsersMantras,
+} from "./ContractUsersMantras";
+import {
+  initContractUserMantraListen,
+  ContractUserMantraListen,
+} from "./ContractUserMantraListen";
 import { initElevenLabsFiles, ElevenLabsFiles } from "./ElevenLabsFiles";
 import { initQueue, Queue } from "./Queue";
 import { initSoundFiles, SoundFiles } from "./SoundFiles";
-import { initContractMantrasElevenLabsFiles, ContractMantrasElevenLabsFiles } from "./ContractMantrasElevenLabsFiles";
-import { initContractMantrasSoundFiles, ContractMantrasSoundFiles } from "./ContractMantrasSoundFiles";
+import {
+  initContractMantrasElevenLabsFiles,
+  ContractMantrasElevenLabsFiles,
+} from "./ContractMantrasElevenLabsFiles";
+import {
+  initContractMantrasSoundFiles,
+  ContractMantrasSoundFiles,
+} from "./ContractMantrasSoundFiles";
 
 import { applyAssociations } from "./_associations";
 
@@ -16,7 +28,7 @@ export function initModels() {
   initUser();
   initMantra();
   initContractUsersMantras();
-  initUserMantraListen();
+  initContractUserMantraListen();
   initElevenLabsFiles();
   initQueue();
   initSoundFiles();
@@ -30,7 +42,7 @@ export function initModels() {
     User,
     Mantra,
     ContractUsersMantras,
-    UserMantraListen,
+    ContractUserMantraListen,
     ElevenLabsFiles,
     Queue,
     SoundFiles,
@@ -44,7 +56,7 @@ export {
   User,
   Mantra,
   ContractUsersMantras,
-  UserMantraListen,
+  ContractUserMantraListen,
   ElevenLabsFiles,
   Queue,
   SoundFiles,

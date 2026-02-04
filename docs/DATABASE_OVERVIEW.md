@@ -11,7 +11,17 @@ Sequelize will handle the createdAt and updatedAt columns with timestamps: true.
 In your Mantrify01API or Mantrify01Queuer project, import the database package:
 
 ```javascript
-import { initModels, sequelize, User, Mantra, Queue, SoundFiles, ElevenLabsFiles, ContractMantrasElevenLabsFiles, ContractMantrasSoundFiles } from "mantrify01db";
+import {
+  initModels,
+  sequelize,
+  User,
+  Mantra,
+  Queue,
+  SoundFiles,
+  ElevenLabsFiles,
+  ContractMantrasElevenLabsFiles,
+  ContractMantrasSoundFiles,
+} from "mantrify01db";
 ```
 
 ### Environment Variables
@@ -22,6 +32,7 @@ Set the following environment variables to configure the database location:
 - `NAME_DB`: Database filename (default: "database.sqlite")
 
 Example:
+
 ```bash
 PATH_DATABASE=/path/to/your/data
 NAME_DB=mantrify.sqlite
@@ -95,7 +106,7 @@ const userCount = await User.count();
 // Update a specific user
 await User.update(
   { isEmailVerified: true, emailVerifiedAt: new Date() },
-  { where: { id: userId } }
+  { where: { id: userId } },
 );
 
 // Update using an instance
@@ -139,7 +150,7 @@ const mantraSoundContract = await ContractMantrasSoundFiles.create({
 });
 
 // Track a listen event
-const listen = await UserMantraListen.create({
+const listen = await ContractUserMantraListen.create({
   userId: user.id,
   mantraId: mantra.id,
   listenCount: 1,
@@ -186,7 +197,7 @@ try {
       email: "newuser@example.com",
       password: "hashedPassword",
     },
-    { transaction: t }
+    { transaction: t },
   );
 
   const mantra = await Mantra.create(
@@ -194,7 +205,7 @@ try {
       title: "User's First Mantra",
       visibility: "private",
     },
-    { transaction: t }
+    { transaction: t },
   );
 
   await ContractUsersMantras.create(
@@ -202,7 +213,7 @@ try {
       userId: user.id,
       mantraId: mantra.id,
     },
-    { transaction: t }
+    { transaction: t },
   );
 
   await t.commit();
@@ -265,13 +276,13 @@ try {
 
 #### Columns
 
-| Column             | Type               | Null | Notes                         |
-| ------------------ | ------------------ | ---- | ----------------------------- |
-| id                 | id                 | NO   | PK                            |
-| mantraId           | mantraId           | NO   | FK → mantras.id               |
-| elevenLabsFilesId  | elevenLabsFilesId  | NO   | FK → elevenlabs_files.id      |
+| Column            | Type              | Null | Notes                    |
+| ----------------- | ----------------- | ---- | ------------------------ |
+| id                | id                | NO   | PK                       |
+| mantraId          | mantraId          | NO   | FK → mantras.id          |
+| elevenLabsFilesId | elevenLabsFilesId | NO   | FK → elevenlabs_files.id |
 
-### Table: `UserMantraListens`
+### Table: `ContractUserMantraListens`
 
 #### Columns
 
@@ -308,8 +319,8 @@ try {
 
 #### Columns
 
-| Column       | Type         | Null | Notes                    |
-| ------------ | ------------ | ---- | ------------------------ |
-| id           | id           | NO   | PK                       |
-| mantraId     | mantraId     | NO   | FK → mantras.id          |
-| soundFilesId | soundFilesId | NO   | FK → sound_files.id      |
+| Column       | Type         | Null | Notes               |
+| ------------ | ------------ | ---- | ------------------- |
+| id           | id           | NO   | PK                  |
+| mantraId     | mantraId     | NO   | FK → mantras.id     |
+| soundFilesId | soundFilesId | NO   | FK → sound_files.id |
