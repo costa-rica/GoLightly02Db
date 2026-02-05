@@ -17,7 +17,7 @@ export class Mantra extends Model<
   declare visibility: CreationOptional<string>;
   declare filename: string | null;
   declare filePath: string | null;
-  declare listens: CreationOptional<number>;
+  declare listenCount: CreationOptional<number>;
 
   // Timestamps
   declare createdAt: CreationOptional<Date>;
@@ -53,7 +53,7 @@ export function initMantra() {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      listens: {
+      listenCount: {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0,
@@ -65,7 +65,7 @@ export function initMantra() {
       sequelize,
       tableName: "mantras",
       timestamps: true,
-    }
+    },
   );
   return Mantra;
 }

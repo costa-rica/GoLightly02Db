@@ -53,7 +53,7 @@ export function applyAssociations() {
 
   Mantra.hasMany(ContractUserMantraListen, {
     foreignKey: "mantraId",
-    as: "listenCount",
+    as: "contractUserMantraListenCount",
   });
 
   // Queue associations

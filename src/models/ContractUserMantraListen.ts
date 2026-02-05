@@ -64,7 +64,7 @@ export function initContractUserMantraListen() {
     },
     {
       sequelize,
-      tableName: "user_mantra_listens",
+      tableName: "contract_user_mantra_listens",
       timestamps: true,
     },
   );
