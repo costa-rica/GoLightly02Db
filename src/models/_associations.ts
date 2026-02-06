@@ -35,6 +35,16 @@ export function applyAssociations() {
     as: "mantra",
   });
 
+  User.hasMany(ContractUsersMantras, {
+    foreignKey: "userId",
+    as: "userMantras",
+  });
+
+  Mantra.hasMany(ContractUsersMantras, {
+    foreignKey: "mantraId",
+    as: "contractUsersMantras",
+  });
+
   // ContractUserMantraListen associations
   ContractUserMantraListen.belongsTo(User, {
     foreignKey: "userId",
