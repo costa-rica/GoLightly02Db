@@ -7,9 +7,9 @@ import {
   ContractUsersMeditations,
 } from "./ContractUsersMeditations";
 import {
-  initContractUserMeditationListen,
-  ContractUserMeditationListen,
-} from "./ContractUserMeditationListen";
+  initContractUserMeditationsListen,
+  ContractUserMeditationsListen,
+} from "./ContractUserMeditationsListen";
 import { initElevenLabsFiles, ElevenLabsFiles } from "./ElevenLabsFiles";
 import { initQueue, Queue } from "./Queue";
 import { initSoundFiles, SoundFiles } from "./SoundFiles";
@@ -28,7 +28,7 @@ export function initModels() {
   initUser();
   initMeditation();
   initContractUsersMeditations();
-  initContractUserMeditationListen();
+  initContractUserMeditationsListen();
   initElevenLabsFiles();
   initQueue();
   initSoundFiles();
@@ -42,7 +42,7 @@ export function initModels() {
     User,
     Meditation,
     ContractUsersMeditations,
-    ContractUserMeditationListen,
+    ContractUserMeditationsListen,
     ElevenLabsFiles,
     Queue,
     SoundFiles,
@@ -56,7 +56,7 @@ export {
   User,
   Meditation,
   ContractUsersMeditations,
-  ContractUserMeditationListen,
+  ContractUserMeditationsListen,
   ElevenLabsFiles,
   Queue,
   SoundFiles,

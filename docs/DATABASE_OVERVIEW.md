@@ -150,7 +150,7 @@ const mantraSoundContract = await ContractMeditationsSoundFiles.create({
 });
 
 // Track a listen event
-const listen = await ContractUserMeditationListen.create({
+const listen = await ContractUserMeditationsListen.create({
   userId: user.id,
   mantraId: meditation.id,
   listenCount: 1,
@@ -247,7 +247,7 @@ try {
 
 - belongsToMany Meditation through ContractUsersMeditations (as "mantras")
 - hasMany ContractUsersMeditations (as "userMeditations")
-- hasMany ContractUserMeditationListen (as "mantraListens")
+- hasMany ContractUserMeditationsListen (as "mantraListens")
 - hasMany Queue (as "queueItems")
 
 ### Table: `Meditations`
@@ -268,7 +268,7 @@ try {
 
 - belongsToMany User through ContractUsersMeditations (as "users")
 - hasMany ContractUsersMeditations (as "contractUsersMeditations")
-- hasMany ContractUserMeditationListen (as "contractUserMeditationListenCount")
+- hasMany ContractUserMeditationsListen (as "contractUserMeditationListenCount")
 - belongsToMany ElevenLabsFiles through ContractMeditationsElevenLabsFiles (as "elevenLabsFiles")
 - belongsToMany SoundFiles through ContractMeditationsSoundFiles (as "soundFiles")
 
@@ -317,7 +317,7 @@ try {
 - belongsTo Meditation (as "meditation")
 - belongsTo ElevenLabsFiles (as "elevenLabsFile")
 
-### Table: `ContractUserMeditationListens`
+### Table: `ContractUserMeditationsListens`
 
 #### Columns
 

@@ -10,9 +10,9 @@ import { sequelize } from "./_connection";
 import { User } from "./User";
 import { Meditation } from "./Meditation";
 
-export class ContractUserMeditationListen extends Model<
-  InferAttributes<ContractUserMeditationListen>,
-  InferCreationAttributes<ContractUserMeditationListen>
+export class ContractUserMeditationsListen extends Model<
+  InferAttributes<ContractUserMeditationsListen>,
+  InferCreationAttributes<ContractUserMeditationsListen>
 > {
   declare id: CreationOptional<number>;
   declare userId: ForeignKey<User["id"]>;
@@ -25,8 +25,8 @@ export class ContractUserMeditationListen extends Model<
   declare updatedAt: CreationOptional<Date>;
 }
 
-export function initContractUserMeditationListen() {
-  ContractUserMeditationListen.init(
+export function initContractUserMeditationsListen() {
+  ContractUserMeditationsListen.init(
     {
       id: {
         type: DataTypes.INTEGER,
@@ -68,5 +68,5 @@ export function initContractUserMeditationListen() {
       timestamps: true,
     },
   );
-  return ContractUserMeditationListen;
+  return ContractUserMeditationsListen;
 }
