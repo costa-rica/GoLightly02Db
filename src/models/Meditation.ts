@@ -63,7 +63,7 @@ export function initMeditation() {
     },
     {
       sequelize,
-      tableName: "mantras",
+      tableName: "meditations",
       timestamps: true,
     },
   );

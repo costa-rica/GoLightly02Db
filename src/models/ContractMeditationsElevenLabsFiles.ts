@@ -15,7 +15,7 @@ export class ContractMeditationsElevenLabsFiles extends Model<
   InferCreationAttributes<ContractMeditationsElevenLabsFiles>
 > {
   declare id: CreationOptional<number>;
-  declare mantraId: ForeignKey<Meditation["id"]>;
+  declare meditationId: ForeignKey<Meditation["id"]>;
   declare elevenLabsFilesId: ForeignKey<ElevenLabsFiles["id"]>;
 
   // Timestamps
@@ -31,11 +31,11 @@ export function initContractMeditationsElevenLabsFiles() {
         autoIncrement: true,
         primaryKey: true,
       },
-      mantraId: {
+      meditationId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: "mantras",
+          model: "meditations",
           key: "id",
         },
       },
@@ -52,7 +52,7 @@ export function initContractMeditationsElevenLabsFiles() {
     },
     {
       sequelize,
-      tableName: "contract_mantras_elevenlabs_files",
+      tableName: "contract_meditations_elevenlabs_files",
       timestamps: true,
     },
   );

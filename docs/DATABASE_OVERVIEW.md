@@ -69,7 +69,7 @@ const meditation = await Meditation.create({
   description: "A peaceful morning meditation meditation",
   visibility: "private",
   filename: "morning-meditation.mp3",
-  filePath: "/audio/mantras/morning-meditation.mp3",
+  filePath: "/audio/meditations/morning-meditation.mp3",
 });
 
 // Create a sound file
@@ -88,7 +88,7 @@ const user = await User.findOne({
   where: { email: "user@example.com" },
 });
 
-// Find all mantras with public visibility
+// Find all meditations with public visibility
 const publicMeditations = await Meditation.findAll({
   where: { visibility: "public" },
 });
@@ -134,25 +134,25 @@ await user.destroy();
 // Associate a user with a meditation
 const contract = await ContractUsersMeditations.create({
   userId: user.id,
-  mantraId: meditation.id,
+  meditationId: meditation.id,
 });
 
 // Associate a meditation with an ElevenLabs file
-const mantraFileContract = await ContractMeditationsElevenLabsFiles.create({
-  mantraId: meditation.id,
+const meditationFileContract = await ContractMeditationsElevenLabsFiles.create({
+  meditationId: meditation.id,
   elevenLabsFilesId: elevenLabsFile.id,
 });
 
 // Associate a meditation with a sound file
-const mantraSoundContract = await ContractMeditationsSoundFiles.create({
-  mantraId: meditation.id,
+const meditationSoundContract = await ContractMeditationsSoundFiles.create({
+  meditationId: meditation.id,
   soundFilesId: soundFile.id,
 });
 
 // Track a listen event
 const listen = await ContractUserMeditationsListen.create({
   userId: user.id,
-  mantraId: meditation.id,
+  meditationId: meditation.id,
   listenCount: 1,
 });
 
@@ -163,29 +163,29 @@ const queueItem = await Queue.create({
   jobFilename: "job_12345.csv",
 });
 
-// Find user with their mantras (using associations)
+// Find user with their meditations (using associations)
 const userWithMeditations = await User.findByPk(userId, {
-  include: [{ association: "mantras" }],
+  include: [{ association: "meditations" }],
 });
 
 // Find meditation with associated ElevenLabs files
-const mantraWithFiles = await Meditation.findByPk(mantraId, {
+const meditationWithFiles = await Meditation.findByPk(meditationId, {
   include: [{ association: "elevenLabsFiles" }],
 });
 
 // Find meditation with associated sound files
-const mantraWithSounds = await Meditation.findByPk(mantraId, {
+const meditationWithSounds = await Meditation.findByPk(meditationId, {
   include: [{ association: "soundFiles" }],
 });
 
 // Find meditation with user listen records
-const mantraWithListens = await Meditation.findByPk(mantraId, {
+const meditationWithListens = await Meditation.findByPk(meditationId, {
   include: [{ association: "contractUserMeditationListenCount" }],
 });
 
-// Find sound file with associated mantras
+// Find sound file with associated meditations
 const soundFileWithMeditations = await SoundFiles.findByPk(soundFileId, {
-  include: [{ association: "mantras" }],
+  include: [{ association: "meditations" }],
 });
 ```
 
@@ -216,7 +216,7 @@ try {
   await ContractUsersMeditations.create(
     {
       userId: user.id,
-      mantraId: meditation.id,
+      meditationId: meditation.id,
     },
     { transaction: t },
   );
@@ -245,24 +245,24 @@ try {
 
 #### Relationships
 
-- belongsToMany Meditation through ContractUsersMeditations (as "mantras")
+- belongsToMany Meditation through ContractUsersMeditations (as "meditations")
 - hasMany ContractUsersMeditations (as "userMeditations")
-- hasMany ContractUserMeditationsListen (as "mantraListens")
+- hasMany ContractUserMeditationsListen (as "meditationListens")
 - hasMany Queue (as "queueItems")
 
 ### Table: `Meditations`
 
 #### Columns
 
-| Column      | Type        | Null | Notes                                                              |
-| ----------- | ----------- | ---- | ------------------------------------------------------------------ |
-| id          | id          | NO   | PK                                                                 |
-| title       | title       | NO   | name shown in UI                                                   |
-| description | description | YES  | public listing summary                                             |
-| visibility  | visibility  | NO   | default `'private'`                                                |
-| filename    | filename    | YES  | filename of the audio file                                         |
-| filePath    | filePath    | YES  | path to the audio file                                             |
-| listenCount | integer     | NO   | default `0`, tracks non-registered user listens for public mantras |
+| Column      | Type        | Null | Notes                                                                  |
+| ----------- | ----------- | ---- | ---------------------------------------------------------------------- |
+| id          | id          | NO   | PK                                                                     |
+| title       | title       | NO   | name shown in UI                                                       |
+| description | description | YES  | public listing summary                                                 |
+| visibility  | visibility  | NO   | default `'private'`                                                    |
+| filename    | filename    | YES  | filename of the audio file                                             |
+| filePath    | filePath    | YES  | path to the audio file                                                 |
+| listenCount | integer     | NO   | default `0`, tracks non-registered user listens for public meditations |
 
 #### Relationships
 
@@ -276,11 +276,11 @@ try {
 
 #### Columns
 
-| Column   | Type     | Null | Notes           |
-| -------- | -------- | ---- | --------------- |
-| id       | id       | NO   | PK              |
-| userId   | userId   | NO   | FK → users.id   |
-| mantraId | mantraId | NO   | FK → mantras.id |
+| Column       | Type         | Null | Notes               |
+| ------------ | ------------ | ---- | ------------------- |
+| id           | id           | NO   | PK                  |
+| userId       | userId       | NO   | FK → users.id       |
+| meditationId | meditationId | NO   | FK → meditations.id |
 
 #### Relationships
 
@@ -300,7 +300,7 @@ try {
 
 #### Relationships
 
-- belongsToMany Meditation through ContractMeditationsElevenLabsFiles (as "mantras")
+- belongsToMany Meditation through ContractMeditationsElevenLabsFiles (as "meditations")
 
 ### Table: `ContractMeditationsElevenLabsFiles`
 
@@ -309,7 +309,7 @@ try {
 | Column            | Type              | Null | Notes                    |
 | ----------------- | ----------------- | ---- | ------------------------ |
 | id                | id                | NO   | PK                       |
-| mantraId          | mantraId          | NO   | FK → mantras.id          |
+| meditationId      | meditationId      | NO   | FK → meditations.id      |
 | elevenLabsFilesId | elevenLabsFilesId | NO   | FK → elevenlabs_files.id |
 
 #### Relationships
@@ -321,13 +321,13 @@ try {
 
 #### Columns
 
-| Column      | Type        | Null | Notes                           |
-| ----------- | ----------- | ---- | ------------------------------- |
-| id          | id          | NO   | PK                              |
-| userId      | userId      | NO   | FK → users.id                   |
-| mantraId    | mantraId    | NO   | FK → mantras.id                 |
-| listenCount | listenCount | NO   | set upon listen                 |
-| favorite    | boolean     | NO   | default `false`, user favorited |
+| Column       | Type         | Null | Notes                           |
+| ------------ | ------------ | ---- | ------------------------------- |
+| id           | id           | NO   | PK                              |
+| userId       | userId       | NO   | FK → users.id                   |
+| meditationId | meditationId | NO   | FK → meditations.id             |
+| listenCount  | listenCount  | NO   | set upon listen                 |
+| favorite     | boolean      | NO   | default `false`, user favorited |
 
 #### Relationships
 
@@ -362,7 +362,7 @@ try {
 
 #### Relationships
 
-- belongsToMany Meditation through ContractMeditationsSoundFiles (as "mantras")
+- belongsToMany Meditation through ContractMeditationsSoundFiles (as "meditations")
 
 ### Table: `ContractMeditationsSoundFiles`
 
@@ -371,7 +371,7 @@ try {
 | Column       | Type         | Null | Notes               |
 | ------------ | ------------ | ---- | ------------------- |
 | id           | id           | NO   | PK                  |
-| mantraId     | mantraId     | NO   | FK → mantras.id     |
+| meditationId | meditationId | NO   | FK → meditations.id |
 | soundFilesId | soundFilesId | NO   | FK → sound_files.id |
 
 #### Relationships

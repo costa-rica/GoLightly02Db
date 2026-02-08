@@ -16,7 +16,7 @@ export class ContractUsersMeditations extends Model<
 > {
   declare id: CreationOptional<number>;
   declare userId: ForeignKey<User["id"]>;
-  declare mantraId: ForeignKey<Meditation["id"]>;
+  declare meditationId: ForeignKey<Meditation["id"]>;
 
   // Timestamps
   declare createdAt: CreationOptional<Date>;
@@ -39,11 +39,11 @@ export function initContractUsersMeditations() {
           key: "id",
         },
       },
-      mantraId: {
+      meditationId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: "mantras",
+          model: "meditations",
           key: "id",
         },
       },
@@ -52,7 +52,7 @@ export function initContractUsersMeditations() {
     },
     {
       sequelize,
-      tableName: "contract_users_mantras",
+      tableName: "contract_users_meditations",
       timestamps: true,
     },
   );

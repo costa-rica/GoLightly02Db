@@ -15,7 +15,7 @@ export class ContractMeditationsSoundFiles extends Model<
   InferCreationAttributes<ContractMeditationsSoundFiles>
 > {
   declare id: CreationOptional<number>;
-  declare mantraId: ForeignKey<Meditation["id"]>;
+  declare meditationId: ForeignKey<Meditation["id"]>;
   declare soundFilesId: ForeignKey<SoundFiles["id"]>;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
@@ -29,12 +29,12 @@ export function initContractMeditationsSoundFiles() {
         autoIncrement: true,
         primaryKey: true,
       },
-      mantraId: {
+      meditationId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        field: "mantra_id",
+        field: "meditation_id",
         references: {
-          model: "mantras",
+          model: "meditations",
           key: "id",
         },
         onUpdate: "CASCADE",
@@ -64,7 +64,7 @@ export function initContractMeditationsSoundFiles() {
     },
     {
       sequelize,
-      tableName: "contract_mantras_sound_files",
+      tableName: "contract_meditations_sound_files",
       timestamps: true,
       underscored: true,
     },

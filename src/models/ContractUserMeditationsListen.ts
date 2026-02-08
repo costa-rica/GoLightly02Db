@@ -16,7 +16,7 @@ export class ContractUserMeditationsListen extends Model<
 > {
   declare id: CreationOptional<number>;
   declare userId: ForeignKey<User["id"]>;
-  declare mantraId: ForeignKey<Meditation["id"]>;
+  declare meditationId: ForeignKey<Meditation["id"]>;
   declare listenCount: number;
   declare favorite: CreationOptional<boolean>;
 
@@ -41,11 +41,11 @@ export function initContractUserMeditationsListen() {
           key: "id",
         },
       },
-      mantraId: {
+      meditationId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: "mantras",
+          model: "meditations",
           key: "id",
         },
       },
@@ -64,7 +64,7 @@ export function initContractUserMeditationsListen() {
     },
     {
       sequelize,
-      tableName: "contract_user_mantra_listens",
+      tableName: "contract_user_meditation_listens",
       timestamps: true,
     },
   );
