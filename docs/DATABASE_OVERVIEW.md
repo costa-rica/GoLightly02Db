@@ -21,7 +21,7 @@ import {
   ElevenLabsFiles,
   ContractMeditationsElevenLabsFiles,
   ContractMeditationsSoundFiles,
-} from "golightly01db";
+} from "golightly02db";
 ```
 
 ### Environment Variables

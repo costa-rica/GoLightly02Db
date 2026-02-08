@@ -1,5 +1,5 @@
 {
-  "name": "golightly01db",
+  "name": "golightly02db",
   "version": "1.0.0",
   "description": "TypeScript Sequelize SQLite database module for GoLightly meditation meditation creator",
   "main": "dist/index.js",
