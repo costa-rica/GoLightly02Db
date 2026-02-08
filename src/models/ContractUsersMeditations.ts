@@ -8,23 +8,23 @@ import {
 } from "sequelize";
 import { sequelize } from "./_connection";
 import { User } from "./User";
-import { Mantra } from "./Mantra";
+import { Meditation } from "./Meditation";
 
-export class ContractUsersMantras extends Model<
-  InferAttributes<ContractUsersMantras>,
-  InferCreationAttributes<ContractUsersMantras>
+export class ContractUsersMeditations extends Model<
+  InferAttributes<ContractUsersMeditations>,
+  InferCreationAttributes<ContractUsersMeditations>
 > {
   declare id: CreationOptional<number>;
   declare userId: ForeignKey<User["id"]>;
-  declare mantraId: ForeignKey<Mantra["id"]>;
+  declare mantraId: ForeignKey<Meditation["id"]>;
 
   // Timestamps
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 }
 
-export function initContractUsersMantras() {
-  ContractUsersMantras.init(
+export function initContractUsersMeditations() {
+  ContractUsersMeditations.init(
     {
       id: {
         type: DataTypes.INTEGER,
@@ -54,7 +54,7 @@ export function initContractUsersMantras() {
       sequelize,
       tableName: "contract_users_mantras",
       timestamps: true,
-    }
+    },
   );
-  return ContractUsersMantras;
+  return ContractUsersMeditations;
 }

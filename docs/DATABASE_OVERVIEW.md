@@ -1,6 +1,6 @@
 # Database Overview
 
-This document provides an overview of the database schema for the Meditation Mantra Creator Project.
+This document provides an overview of the database schema for the Meditation Meditation Creator Project.
 
 Sequelize will handle the createdAt and updatedAt columns with timestamps: true.
 
@@ -8,20 +8,20 @@ Sequelize will handle the createdAt and updatedAt columns with timestamps: true.
 
 ### Installation
 
-In your Mantrify01API or Mantrify01Queuer project, import the database package:
+In your GoLightly01API or GoLightly01Queuer project, import the database package:
 
 ```javascript
 import {
   initModels,
   sequelize,
   User,
-  Mantra,
+  Meditation,
   Queue,
   SoundFiles,
   ElevenLabsFiles,
-  ContractMantrasElevenLabsFiles,
-  ContractMantrasSoundFiles,
-} from "mantrify01db";
+  ContractMeditationsElevenLabsFiles,
+  ContractMeditationsSoundFiles,
+} from "golightly01db";
 ```
 
 ### Environment Variables
@@ -35,7 +35,7 @@ Example:
 
 ```bash
 PATH_DATABASE=/path/to/your/data
-NAME_DB=mantrify.sqlite
+NAME_DB=golightly.sqlite
 ```
 
 ### Initialize the Database
@@ -63,10 +63,10 @@ const user = await User.create({
   isAdmin: false,
 });
 
-// Create a new mantra
-const mantra = await Mantra.create({
+// Create a new meditation
+const meditation = await Meditation.create({
   title: "Morning Meditation",
-  description: "A peaceful morning meditation mantra",
+  description: "A peaceful morning meditation meditation",
   visibility: "private",
   filename: "morning-meditation.mp3",
   filePath: "/audio/mantras/morning-meditation.mp3",
@@ -89,12 +89,12 @@ const user = await User.findOne({
 });
 
 // Find all mantras with public visibility
-const publicMantras = await Mantra.findAll({
+const publicMeditations = await Meditation.findAll({
   where: { visibility: "public" },
 });
 
 // Find by primary key
-const mantra = await Mantra.findByPk(1);
+const meditation = await Meditation.findByPk(1);
 
 // Count records
 const userCount = await User.count();
@@ -119,7 +119,7 @@ await user.save();
 
 ```javascript
 // Delete by condition
-await Mantra.destroy({
+await Meditation.destroy({
   where: { visibility: "private", userId: userId },
 });
 
@@ -131,28 +131,28 @@ await user.destroy();
 ### Working with Relationships
 
 ```javascript
-// Associate a user with a mantra
-const contract = await ContractUsersMantras.create({
+// Associate a user with a meditation
+const contract = await ContractUsersMeditations.create({
   userId: user.id,
-  mantraId: mantra.id,
+  mantraId: meditation.id,
 });
 
-// Associate a mantra with an ElevenLabs file
-const mantraFileContract = await ContractMantrasElevenLabsFiles.create({
-  mantraId: mantra.id,
+// Associate a meditation with an ElevenLabs file
+const mantraFileContract = await ContractMeditationsElevenLabsFiles.create({
+  mantraId: meditation.id,
   elevenLabsFilesId: elevenLabsFile.id,
 });
 
-// Associate a mantra with a sound file
-const mantraSoundContract = await ContractMantrasSoundFiles.create({
-  mantraId: mantra.id,
+// Associate a meditation with a sound file
+const mantraSoundContract = await ContractMeditationsSoundFiles.create({
+  mantraId: meditation.id,
   soundFilesId: soundFile.id,
 });
 
 // Track a listen event
-const listen = await ContractUserMantraListen.create({
+const listen = await ContractUserMeditationListen.create({
   userId: user.id,
-  mantraId: mantra.id,
+  mantraId: meditation.id,
   listenCount: 1,
 });
 
@@ -164,27 +164,27 @@ const queueItem = await Queue.create({
 });
 
 // Find user with their mantras (using associations)
-const userWithMantras = await User.findByPk(userId, {
+const userWithMeditations = await User.findByPk(userId, {
   include: [{ association: "mantras" }],
 });
 
-// Find mantra with associated ElevenLabs files
-const mantraWithFiles = await Mantra.findByPk(mantraId, {
+// Find meditation with associated ElevenLabs files
+const mantraWithFiles = await Meditation.findByPk(mantraId, {
   include: [{ association: "elevenLabsFiles" }],
 });
 
-// Find mantra with associated sound files
-const mantraWithSounds = await Mantra.findByPk(mantraId, {
+// Find meditation with associated sound files
+const mantraWithSounds = await Meditation.findByPk(mantraId, {
   include: [{ association: "soundFiles" }],
 });
 
-// Find mantra with user listen records
-const mantraWithListens = await Mantra.findByPk(mantraId, {
-  include: [{ association: "contractUserMantraListenCount" }],
+// Find meditation with user listen records
+const mantraWithListens = await Meditation.findByPk(mantraId, {
+  include: [{ association: "contractUserMeditationListenCount" }],
 });
 
 // Find sound file with associated mantras
-const soundFileWithMantras = await SoundFiles.findByPk(soundFileId, {
+const soundFileWithMeditations = await SoundFiles.findByPk(soundFileId, {
   include: [{ association: "mantras" }],
 });
 ```
@@ -205,18 +205,18 @@ try {
     { transaction: t },
   );
 
-  const mantra = await Mantra.create(
+  const meditation = await Meditation.create(
     {
-      title: "User's First Mantra",
+      title: "User's First Meditation",
       visibility: "private",
     },
     { transaction: t },
   );
 
-  await ContractUsersMantras.create(
+  await ContractUsersMeditations.create(
     {
       userId: user.id,
-      mantraId: mantra.id,
+      mantraId: meditation.id,
     },
     { transaction: t },
   );
@@ -245,34 +245,34 @@ try {
 
 #### Relationships
 
-- belongsToMany Mantra through ContractUsersMantras (as "mantras")
-- hasMany ContractUsersMantras (as "userMantras")
-- hasMany ContractUserMantraListen (as "mantraListens")
+- belongsToMany Meditation through ContractUsersMeditations (as "mantras")
+- hasMany ContractUsersMeditations (as "userMeditations")
+- hasMany ContractUserMeditationListen (as "mantraListens")
 - hasMany Queue (as "queueItems")
 
-### Table: `Mantras`
+### Table: `Meditations`
 
 #### Columns
 
-| Column      | Type        | Null | Notes                                                      |
-| ----------- | ----------- | ---- | ---------------------------------------------------------- |
-| id          | id          | NO   | PK                                                         |
-| title       | title       | NO   | name shown in UI                                           |
-| description | description | YES  | public listing summary                                     |
-| visibility  | visibility  | NO   | default `'private'`                                        |
-| filename    | filename    | YES  | filename of the audio file                                 |
-| filePath    | filePath    | YES  | path to the audio file                                     |
+| Column      | Type        | Null | Notes                                                              |
+| ----------- | ----------- | ---- | ------------------------------------------------------------------ |
+| id          | id          | NO   | PK                                                                 |
+| title       | title       | NO   | name shown in UI                                                   |
+| description | description | YES  | public listing summary                                             |
+| visibility  | visibility  | NO   | default `'private'`                                                |
+| filename    | filename    | YES  | filename of the audio file                                         |
+| filePath    | filePath    | YES  | path to the audio file                                             |
 | listenCount | integer     | NO   | default `0`, tracks non-registered user listens for public mantras |
 
 #### Relationships
 
-- belongsToMany User through ContractUsersMantras (as "users")
-- hasMany ContractUsersMantras (as "contractUsersMantras")
-- hasMany ContractUserMantraListen (as "contractUserMantraListenCount")
-- belongsToMany ElevenLabsFiles through ContractMantrasElevenLabsFiles (as "elevenLabsFiles")
-- belongsToMany SoundFiles through ContractMantrasSoundFiles (as "soundFiles")
+- belongsToMany User through ContractUsersMeditations (as "users")
+- hasMany ContractUsersMeditations (as "contractUsersMeditations")
+- hasMany ContractUserMeditationListen (as "contractUserMeditationListenCount")
+- belongsToMany ElevenLabsFiles through ContractMeditationsElevenLabsFiles (as "elevenLabsFiles")
+- belongsToMany SoundFiles through ContractMeditationsSoundFiles (as "soundFiles")
 
-### Table: `ContractUsersMantras`
+### Table: `ContractUsersMeditations`
 
 #### Columns
 
@@ -285,7 +285,7 @@ try {
 #### Relationships
 
 - belongsTo User (as "user")
-- belongsTo Mantra (as "mantra")
+- belongsTo Meditation (as "meditation")
 
 ### Table: `ElevenLabsFiles`
 
@@ -300,9 +300,9 @@ try {
 
 #### Relationships
 
-- belongsToMany Mantra through ContractMantrasElevenLabsFiles (as "mantras")
+- belongsToMany Meditation through ContractMeditationsElevenLabsFiles (as "mantras")
 
-### Table: `ContractMantrasElevenLabsFiles`
+### Table: `ContractMeditationsElevenLabsFiles`
 
 #### Columns
 
@@ -314,25 +314,25 @@ try {
 
 #### Relationships
 
-- belongsTo Mantra (as "mantra")
+- belongsTo Meditation (as "meditation")
 - belongsTo ElevenLabsFiles (as "elevenLabsFile")
 
-### Table: `ContractUserMantraListens`
+### Table: `ContractUserMeditationListens`
 
 #### Columns
 
-| Column      | Type        | Null | Notes                            |
-| ----------- | ----------- | ---- | -------------------------------- |
-| id          | id          | NO   | PK                               |
-| userId      | userId      | NO   | FK → users.id                    |
-| mantraId    | mantraId    | NO   | FK → mantras.id                  |
-| listenCount | listenCount | NO   | set upon listen                  |
-| favorite    | boolean     | NO   | default `false`, user favorited  |
+| Column      | Type        | Null | Notes                           |
+| ----------- | ----------- | ---- | ------------------------------- |
+| id          | id          | NO   | PK                              |
+| userId      | userId      | NO   | FK → users.id                   |
+| mantraId    | mantraId    | NO   | FK → mantras.id                 |
+| listenCount | listenCount | NO   | set upon listen                 |
+| favorite    | boolean     | NO   | default `false`, user favorited |
 
 #### Relationships
 
 - belongsTo User (as "user")
-- belongsTo Mantra (as "mantra")
+- belongsTo Meditation (as "meditation")
 
 ### Table: `Queue`
 
@@ -362,9 +362,9 @@ try {
 
 #### Relationships
 
-- belongsToMany Mantra through ContractMantrasSoundFiles (as "mantras")
+- belongsToMany Meditation through ContractMeditationsSoundFiles (as "mantras")
 
-### Table: `ContractMantrasSoundFiles`
+### Table: `ContractMeditationsSoundFiles`
 
 #### Columns
 
@@ -376,5 +376,5 @@ try {
 
 #### Relationships
 
-- belongsTo Mantra (as "mantra")
+- belongsTo Meditation (as "meditation")
 - belongsTo SoundFiles (as "soundFile")

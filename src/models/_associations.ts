@@ -1,69 +1,69 @@
 import { User } from "./User";
-import { Mantra } from "./Mantra";
-import { ContractUsersMantras } from "./ContractUsersMantras";
-import { ContractUserMantraListen } from "./ContractUserMantraListen";
+import { Meditation } from "./Meditation";
+import { ContractUsersMeditations } from "./ContractUsersMeditations";
+import { ContractUserMeditationListen } from "./ContractUserMeditationListen";
 import { Queue } from "./Queue";
 import { ElevenLabsFiles } from "./ElevenLabsFiles";
-import { ContractMantrasElevenLabsFiles } from "./ContractMantrasElevenLabsFiles";
+import { ContractMeditationsElevenLabsFiles } from "./ContractMeditationsElevenLabsFiles";
 import { SoundFiles } from "./SoundFiles";
-import { ContractMantrasSoundFiles } from "./ContractMantrasSoundFiles";
+import { ContractMeditationsSoundFiles } from "./ContractMeditationsSoundFiles";
 
 export function applyAssociations() {
-  // User ↔ Mantra (many-to-many through ContractUsersMantras)
-  User.belongsToMany(Mantra, {
-    through: ContractUsersMantras,
+  // User ↔ Meditation (many-to-many through ContractUsersMeditations)
+  User.belongsToMany(Meditation, {
+    through: ContractUsersMeditations,
     foreignKey: "userId",
     otherKey: "mantraId",
     as: "mantras",
   });
 
-  Mantra.belongsToMany(User, {
-    through: ContractUsersMantras,
+  Meditation.belongsToMany(User, {
+    through: ContractUsersMeditations,
     foreignKey: "mantraId",
     otherKey: "userId",
     as: "users",
   });
 
-  // ContractUsersMantras associations
-  ContractUsersMantras.belongsTo(User, {
+  // ContractUsersMeditations associations
+  ContractUsersMeditations.belongsTo(User, {
     foreignKey: "userId",
     as: "user",
   });
 
-  ContractUsersMantras.belongsTo(Mantra, {
+  ContractUsersMeditations.belongsTo(Meditation, {
     foreignKey: "mantraId",
-    as: "mantra",
+    as: "meditation",
   });
 
-  User.hasMany(ContractUsersMantras, {
+  User.hasMany(ContractUsersMeditations, {
     foreignKey: "userId",
-    as: "userMantras",
+    as: "userMeditations",
   });
 
-  Mantra.hasMany(ContractUsersMantras, {
+  Meditation.hasMany(ContractUsersMeditations, {
     foreignKey: "mantraId",
-    as: "contractUsersMantras",
+    as: "contractUsersMeditations",
   });
 
-  // ContractUserMantraListen associations
-  ContractUserMantraListen.belongsTo(User, {
+  // ContractUserMeditationListen associations
+  ContractUserMeditationListen.belongsTo(User, {
     foreignKey: "userId",
     as: "user",
   });
 
-  ContractUserMantraListen.belongsTo(Mantra, {
+  ContractUserMeditationListen.belongsTo(Meditation, {
     foreignKey: "mantraId",
-    as: "mantra",
+    as: "meditation",
   });
 
-  User.hasMany(ContractUserMantraListen, {
+  User.hasMany(ContractUserMeditationListen, {
     foreignKey: "userId",
     as: "mantraListens",
   });
 
-  Mantra.hasMany(ContractUserMantraListen, {
+  Meditation.hasMany(ContractUserMeditationListen, {
     foreignKey: "mantraId",
-    as: "contractUserMantraListenCount",
+    as: "contractUserMeditationListenCount",
   });
 
   // Queue associations
@@ -77,54 +77,54 @@ export function applyAssociations() {
     as: "queueItems",
   });
 
-  // Mantra ↔ ElevenLabsFiles (many-to-many through ContractMantrasElevenLabsFiles)
-  Mantra.belongsToMany(ElevenLabsFiles, {
-    through: ContractMantrasElevenLabsFiles,
+  // Meditation ↔ ElevenLabsFiles (many-to-many through ContractMeditationsElevenLabsFiles)
+  Meditation.belongsToMany(ElevenLabsFiles, {
+    through: ContractMeditationsElevenLabsFiles,
     foreignKey: "mantraId",
     otherKey: "elevenLabsFilesId",
     as: "elevenLabsFiles",
   });
 
-  ElevenLabsFiles.belongsToMany(Mantra, {
-    through: ContractMantrasElevenLabsFiles,
+  ElevenLabsFiles.belongsToMany(Meditation, {
+    through: ContractMeditationsElevenLabsFiles,
     foreignKey: "elevenLabsFilesId",
     otherKey: "mantraId",
     as: "mantras",
   });
 
-  // ContractMantrasElevenLabsFiles associations
-  ContractMantrasElevenLabsFiles.belongsTo(Mantra, {
+  // ContractMeditationsElevenLabsFiles associations
+  ContractMeditationsElevenLabsFiles.belongsTo(Meditation, {
     foreignKey: "mantraId",
-    as: "mantra",
+    as: "meditation",
   });
 
-  ContractMantrasElevenLabsFiles.belongsTo(ElevenLabsFiles, {
+  ContractMeditationsElevenLabsFiles.belongsTo(ElevenLabsFiles, {
     foreignKey: "elevenLabsFilesId",
     as: "elevenLabsFile",
   });
 
-  // Mantra ↔ SoundFiles (many-to-many through ContractMantrasSoundFiles)
-  Mantra.belongsToMany(SoundFiles, {
-    through: ContractMantrasSoundFiles,
+  // Meditation ↔ SoundFiles (many-to-many through ContractMeditationsSoundFiles)
+  Meditation.belongsToMany(SoundFiles, {
+    through: ContractMeditationsSoundFiles,
     foreignKey: "mantraId",
     otherKey: "soundFilesId",
     as: "soundFiles",
   });
 
-  SoundFiles.belongsToMany(Mantra, {
-    through: ContractMantrasSoundFiles,
+  SoundFiles.belongsToMany(Meditation, {
+    through: ContractMeditationsSoundFiles,
     foreignKey: "soundFilesId",
     otherKey: "mantraId",
     as: "mantras",
   });
 
-  // ContractMantrasSoundFiles associations
-  ContractMantrasSoundFiles.belongsTo(Mantra, {
+  // ContractMeditationsSoundFiles associations
+  ContractMeditationsSoundFiles.belongsTo(Meditation, {
     foreignKey: "mantraId",
-    as: "mantra",
+    as: "meditation",
   });
 
-  ContractMantrasSoundFiles.belongsTo(SoundFiles, {
+  ContractMeditationsSoundFiles.belongsTo(SoundFiles, {
     foreignKey: "soundFilesId",
     as: "soundFile",
   });

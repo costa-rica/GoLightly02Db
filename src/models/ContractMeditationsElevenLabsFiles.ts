@@ -7,15 +7,15 @@ import {
   ForeignKey,
 } from "sequelize";
 import { sequelize } from "./_connection";
-import { Mantra } from "./Mantra";
+import { Meditation } from "./Meditation";
 import { ElevenLabsFiles } from "./ElevenLabsFiles";
 
-export class ContractMantrasElevenLabsFiles extends Model<
-  InferAttributes<ContractMantrasElevenLabsFiles>,
-  InferCreationAttributes<ContractMantrasElevenLabsFiles>
+export class ContractMeditationsElevenLabsFiles extends Model<
+  InferAttributes<ContractMeditationsElevenLabsFiles>,
+  InferCreationAttributes<ContractMeditationsElevenLabsFiles>
 > {
   declare id: CreationOptional<number>;
-  declare mantraId: ForeignKey<Mantra["id"]>;
+  declare mantraId: ForeignKey<Meditation["id"]>;
   declare elevenLabsFilesId: ForeignKey<ElevenLabsFiles["id"]>;
 
   // Timestamps
@@ -23,8 +23,8 @@ export class ContractMantrasElevenLabsFiles extends Model<
   declare updatedAt: CreationOptional<Date>;
 }
 
-export function initContractMantrasElevenLabsFiles() {
-  ContractMantrasElevenLabsFiles.init(
+export function initContractMeditationsElevenLabsFiles() {
+  ContractMeditationsElevenLabsFiles.init(
     {
       id: {
         type: DataTypes.INTEGER,
@@ -54,7 +54,7 @@ export function initContractMantrasElevenLabsFiles() {
       sequelize,
       tableName: "contract_mantras_elevenlabs_files",
       timestamps: true,
-    }
+    },
   );
-  return ContractMantrasElevenLabsFiles;
+  return ContractMeditationsElevenLabsFiles;
 }

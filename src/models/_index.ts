@@ -1,65 +1,65 @@
 import { sequelize } from "./_connection";
 
 import { initUser, User } from "./User";
-import { initMantra, Mantra } from "./Mantra";
+import { initMeditation, Meditation } from "./Meditation";
 import {
-  initContractUsersMantras,
-  ContractUsersMantras,
-} from "./ContractUsersMantras";
+  initContractUsersMeditations,
+  ContractUsersMeditations,
+} from "./ContractUsersMeditations";
 import {
-  initContractUserMantraListen,
-  ContractUserMantraListen,
-} from "./ContractUserMantraListen";
+  initContractUserMeditationListen,
+  ContractUserMeditationListen,
+} from "./ContractUserMeditationListen";
 import { initElevenLabsFiles, ElevenLabsFiles } from "./ElevenLabsFiles";
 import { initQueue, Queue } from "./Queue";
 import { initSoundFiles, SoundFiles } from "./SoundFiles";
 import {
-  initContractMantrasElevenLabsFiles,
-  ContractMantrasElevenLabsFiles,
-} from "./ContractMantrasElevenLabsFiles";
+  initContractMeditationsElevenLabsFiles,
+  ContractMeditationsElevenLabsFiles,
+} from "./ContractMeditationsElevenLabsFiles";
 import {
-  initContractMantrasSoundFiles,
-  ContractMantrasSoundFiles,
-} from "./ContractMantrasSoundFiles";
+  initContractMeditationsSoundFiles,
+  ContractMeditationsSoundFiles,
+} from "./ContractMeditationsSoundFiles";
 
 import { applyAssociations } from "./_associations";
 
 export function initModels() {
   initUser();
-  initMantra();
-  initContractUsersMantras();
-  initContractUserMantraListen();
+  initMeditation();
+  initContractUsersMeditations();
+  initContractUserMeditationListen();
   initElevenLabsFiles();
   initQueue();
   initSoundFiles();
-  initContractMantrasElevenLabsFiles();
-  initContractMantrasSoundFiles();
+  initContractMeditationsElevenLabsFiles();
+  initContractMeditationsSoundFiles();
 
   applyAssociations();
 
   return {
     sequelize,
     User,
-    Mantra,
-    ContractUsersMantras,
-    ContractUserMantraListen,
+    Meditation,
+    ContractUsersMeditations,
+    ContractUserMeditationListen,
     ElevenLabsFiles,
     Queue,
     SoundFiles,
-    ContractMantrasElevenLabsFiles,
-    ContractMantrasSoundFiles,
+    ContractMeditationsElevenLabsFiles,
+    ContractMeditationsSoundFiles,
   };
 }
 
 export {
   sequelize,
   User,
-  Mantra,
-  ContractUsersMantras,
-  ContractUserMantraListen,
+  Meditation,
+  ContractUsersMeditations,
+  ContractUserMeditationListen,
   ElevenLabsFiles,
   Queue,
   SoundFiles,
-  ContractMantrasElevenLabsFiles,
-  ContractMantrasSoundFiles,
+  ContractMeditationsElevenLabsFiles,
+  ContractMeditationsSoundFiles,
 };

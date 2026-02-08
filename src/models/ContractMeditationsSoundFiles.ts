@@ -7,22 +7,22 @@ import {
   ForeignKey,
 } from "sequelize";
 import { sequelize } from "./_connection";
-import { Mantra } from "./Mantra";
+import { Meditation } from "./Meditation";
 import { SoundFiles } from "./SoundFiles";
 
-export class ContractMantrasSoundFiles extends Model<
-  InferAttributes<ContractMantrasSoundFiles>,
-  InferCreationAttributes<ContractMantrasSoundFiles>
+export class ContractMeditationsSoundFiles extends Model<
+  InferAttributes<ContractMeditationsSoundFiles>,
+  InferCreationAttributes<ContractMeditationsSoundFiles>
 > {
   declare id: CreationOptional<number>;
-  declare mantraId: ForeignKey<Mantra["id"]>;
+  declare mantraId: ForeignKey<Meditation["id"]>;
   declare soundFilesId: ForeignKey<SoundFiles["id"]>;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 }
 
-export function initContractMantrasSoundFiles() {
-  ContractMantrasSoundFiles.init(
+export function initContractMeditationsSoundFiles() {
+  ContractMeditationsSoundFiles.init(
     {
       id: {
         type: DataTypes.INTEGER,

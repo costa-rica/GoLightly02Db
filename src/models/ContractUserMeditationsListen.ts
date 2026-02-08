@@ -8,15 +8,15 @@ import {
 } from "sequelize";
 import { sequelize } from "./_connection";
 import { User } from "./User";
-import { Mantra } from "./Mantra";
+import { Meditation } from "./Meditation";
 
-export class ContractUserMantraListen extends Model<
-  InferAttributes<ContractUserMantraListen>,
-  InferCreationAttributes<ContractUserMantraListen>
+export class ContractUserMeditationListen extends Model<
+  InferAttributes<ContractUserMeditationListen>,
+  InferCreationAttributes<ContractUserMeditationListen>
 > {
   declare id: CreationOptional<number>;
   declare userId: ForeignKey<User["id"]>;
-  declare mantraId: ForeignKey<Mantra["id"]>;
+  declare mantraId: ForeignKey<Meditation["id"]>;
   declare listenCount: number;
   declare favorite: CreationOptional<boolean>;
 
@@ -25,8 +25,8 @@ export class ContractUserMantraListen extends Model<
   declare updatedAt: CreationOptional<Date>;
 }
 
-export function initContractUserMantraListen() {
-  ContractUserMantraListen.init(
+export function initContractUserMeditationListen() {
+  ContractUserMeditationListen.init(
     {
       id: {
         type: DataTypes.INTEGER,
@@ -68,5 +68,5 @@ export function initContractUserMantraListen() {
       timestamps: true,
     },
   );
-  return ContractUserMantraListen;
+  return ContractUserMeditationListen;
 }

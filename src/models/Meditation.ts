@@ -7,9 +7,9 @@ import {
 } from "sequelize";
 import { sequelize } from "./_connection";
 
-export class Mantra extends Model<
-  InferAttributes<Mantra>,
-  InferCreationAttributes<Mantra>
+export class Meditation extends Model<
+  InferAttributes<Meditation>,
+  InferCreationAttributes<Meditation>
 > {
   declare id: CreationOptional<number>;
   declare title: string;
@@ -24,8 +24,8 @@ export class Mantra extends Model<
   declare updatedAt: CreationOptional<Date>;
 }
 
-export function initMantra() {
-  Mantra.init(
+export function initMeditation() {
+  Meditation.init(
     {
       id: {
         type: DataTypes.INTEGER,
@@ -67,5 +67,5 @@ export function initMantra() {
       timestamps: true,
     },
   );
-  return Mantra;
+  return Meditation;
 }
