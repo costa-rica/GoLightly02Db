@@ -43,7 +43,7 @@ export function initMeditation() {
       visibility: {
         type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: "private",
+        defaultValue: "public",
       },
       filename: {
         type: DataTypes.STRING,

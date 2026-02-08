@@ -67,7 +67,7 @@ const user = await User.create({
 const meditation = await Meditation.create({
   title: "Morning Meditation",
   description: "A peaceful morning meditation meditation",
-  visibility: "private",
+  visibility: "public",
   filename: "morning-meditation.mp3",
   filePath: "/audio/meditations/morning-meditation.mp3",
 });
@@ -120,7 +120,7 @@ await user.save();
 ```javascript
 // Delete by condition
 await Meditation.destroy({
-  where: { visibility: "private", userId: userId },
+  where: { visibility: "public", userId: userId },
 });
 
 // Delete using an instance
@@ -208,7 +208,7 @@ try {
   const meditation = await Meditation.create(
     {
       title: "User's First Meditation",
-      visibility: "private",
+      visibility: "public",
     },
     { transaction: t },
   );
@@ -259,7 +259,7 @@ try {
 | id          | id          | NO   | PK                                                                     |
 | title       | title       | NO   | name shown in UI                                                       |
 | description | description | YES  | public listing summary                                                 |
-| visibility  | visibility  | NO   | default `'private'`                                                    |
+| visibility  | visibility  | NO   | default `'public'`                                                     |
 | filename    | filename    | YES  | filename of the audio file                                             |
 | filePath    | filePath    | YES  | path to the audio file                                                 |
 | listenCount | integer     | NO   | default `0`, tracks non-registered user listens for public meditations |
