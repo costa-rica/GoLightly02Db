@@ -13,10 +13,11 @@ export class User extends Model<
 > {
   declare id: CreationOptional<number>;
   declare email: string;
-  declare password: string;
+  declare password: string | null; // Nullable for Google-only auth users
   declare isEmailVerified: CreationOptional<boolean>;
   declare emailVerifiedAt: Date | null;
   declare isAdmin: CreationOptional<boolean>;
+  declare authProvider: CreationOptional<string>; // 'local', 'google', or 'both'
 
   // Timestamps
   declare createdAt: CreationOptional<Date>;
@@ -42,12 +43,20 @@ export function initUser() {
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true, // Nullable for Google-only auth users
       },
       isEmailVerified: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false,
+      },
+      authProvider: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: "local", // 'local', 'google', or 'both'
+        validate: {
+          isIn: [["local", "google", "both"]],
+        },
       },
       emailVerifiedAt: {
         type: DataTypes.DATE,

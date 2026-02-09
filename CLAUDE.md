@@ -4,6 +4,41 @@
 
 This is a custom TypeScript package that provides Sequelize SQLite database models and connections for GoLightly applications. It's designed to be installed via npm into other applications and services.
 
+## Google Authentication Schema Changes (February 9, 2026)
+
+### Breaking Changes
+
+The User model has been updated to support Google Authentication alongside traditional email/password authentication.
+
+**Schema Changes:**
+
+1. **password field is now nullable**
+   - Previously: `password` was NOT NULL
+   - Now: `password` can be NULL (for Google-only authentication users)
+   - Impact: Users authenticating with Google only will have `password = null`
+
+2. **New authProvider field**
+   - Type: STRING, NOT NULL
+   - Default: 'local'
+   - Allowed values: 'local', 'google', 'both'
+   - Purpose: Tracks which authentication method(s) a user has enabled
+
+**User Types:**
+
+- **Local auth users** (`authProvider='local'`): Traditional email/password authentication, password required
+- **Google-only users** (`authProvider='google'`): Authenticate via Google, password is null
+- **Linked accounts** (`authProvider='both'`): Can use either email/password or Google authentication
+
+**Migration Strategy:**
+
+Since we're starting fresh with a new database, no migration is required. The old database will be deleted and recreated with the new schema.
+
+**Validation:**
+
+- Database-level validation ensures `authProvider` is one of: 'local', 'google', or 'both'
+- API-level validation (in GoLightly02API) enforces that password is required when `authProvider='local'` or `authProvider='both'`
+- API-level validation ensures password can be null only when `authProvider='google'`
+
 ## Security Vulnerabilities Fix (February 2026)
 
 ### Issue
