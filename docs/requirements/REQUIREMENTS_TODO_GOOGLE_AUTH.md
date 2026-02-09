@@ -5,6 +5,7 @@ This document outlines the tasks required to implement Google Authentication for
 ## Overview
 
 Users will be able to register and login using their Google accounts. The implementation will:
+
 - Allow users to use BOTH email/password and Google authentication
 - Automatically link Google accounts to existing email/password accounts
 - Track authentication methods using an `authProvider` field
@@ -13,6 +14,7 @@ Users will be able to register and login using their Google accounts. The implem
 ## Implementation Strategy
 
 When a user authenticates with Google:
+
 1. Frontend receives Google ID token
 2. Frontend sends ID token to API endpoint `/users/google-auth`
 3. API verifies token with Google's servers
@@ -418,6 +420,7 @@ When a user authenticates with Google:
 ## Notes & Considerations
 
 ### Security Best Practices
+
 - Always verify Google ID tokens on the server side using Google's libraries
 - Never trust user data from the client without verification
 - Use HTTPS in production
@@ -425,17 +428,20 @@ When a user authenticates with Google:
 - Log authentication attempts for security auditing
 
 ### User Experience
+
 - Make Google Sign-In button prominent and easy to find
 - Provide clear error messages when authentication fails
 - Explain benefits of linking accounts
 - Allow users to see which authentication methods they have enabled
 
 ### Database Migration
+
 - Existing users will have `authProvider='local'` by default
 - No existing passwords need to be modified
 - The password column will remain populated for all current users
 
 ### Future Enhancements
+
 - Support for other OAuth providers (Facebook, Apple, Microsoft)
 - Two-factor authentication
 - Account recovery options for Google-only accounts
@@ -445,5 +451,5 @@ When a user authenticates with Google:
 ---
 
 **Document Version**: 1.0
-**Created**: February 2026
+**Created**: February 9, 2026
 **Status**: Planning Phase
